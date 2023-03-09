@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getPokemonList, getPokemonDetails } from '../actions'
+import { getPokemonList, getPokemonDetails, setPagination } from '../actions'
 
 export const pokemonSlice = createSlice({
   name: 'pokemon',
@@ -39,6 +39,9 @@ export const pokemonSlice = createSlice({
         state.pokemonDetails = null
         state.isLoading = false
         state.error = action.payload
+      })
+      .addCase(setPagination, (state, action) => {
+        state.pagination = action.payload
       })
   }
 })

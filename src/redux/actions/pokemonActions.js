@@ -1,6 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+// Get list of pokemon from PokeAPI
 export const getPokemonList = createAsyncThunk(
   'pokemon/getPokemonList',
   async () => {
@@ -9,6 +10,7 @@ export const getPokemonList = createAsyncThunk(
   }
 )
 
+// Get details of pokemon from PokeAPI
 export const getPokemonDetails = createAsyncThunk(
   'pokemon/getPokemonDetails',
   async (pokemonId) => {
@@ -16,3 +18,5 @@ export const getPokemonDetails = createAsyncThunk(
     return response.data
   }
 )
+
+export const setPagination = createAction('pokemon/setPagination')
