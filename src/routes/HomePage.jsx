@@ -1,14 +1,10 @@
-import { useTranslation } from 'react-i18next'
 import PokemonList from '../components/PokemonList'
 
 const HomePage = () => {
-  const { t } = useTranslation()
   return (
     <div className='flex flex-col justify-center items-center'>
-      <h1 className=''>{t('title')}</h1>
-      <input placeholder={t('searchPlaceholder')} />
+      <h1 className='text-center text-3xl font-bold text-gray-600  my-12'>Welcome to PokeApp</h1>
       <div>
-        <h1>{t('pokemonList')}</h1>
         <PokemonList />
       </div>
     </div>

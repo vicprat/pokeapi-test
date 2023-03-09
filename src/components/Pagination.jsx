@@ -5,7 +5,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   }
 
   return (
-    <nav className='flex justify-center'>
+    <nav className='flex justify-center mt-8'>
       <ul className='flex'>
         {pageNumbers.map(number => (
           <li key={number} className='p-1'>
