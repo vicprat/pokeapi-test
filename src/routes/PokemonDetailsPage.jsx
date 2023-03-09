@@ -1,37 +1,58 @@
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const PokemonDetailsPage = () => {
-  const { id } = useParams() // Obtener el id del Pokemon seleccionado de los parámetros de la URL
-  const pokemonList = useSelector((state) => state.pokemon.pokemonList) // Obtener la lista de Pokemon desde el estado global
-  const selectedPokemon = pokemonList.find((pokemon) => pokemon.id === Number(id)) // Encontrar el objeto del Pokemon seleccionado en la lista
+  const [pokemonDetails, setPokemonDetails] = useState(null)
+  const { id } = useParams()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        setPokemonDetails(response.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
+  }, [id])
+
+  if (!pokemonDetails) {
+    return <div>Loading...</div>
+  }
 
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div className='bg-white shadow-lg rounded-lg w-80 p-4'>
-        <img src={selectedPokemon.sprites.front_default} alt={selectedPokemon.name} className='mx-auto' />
-        <h1 className='text-center text-2xl font-bold mt-2'>{selectedPokemon.name}</h1>
-        <div className='mt-4'>
-          <h2 className='text-lg font-bold mb-2'>Abilities</h2>
-          <ul>
-            {selectedPokemon.abilities.map((ability) => (
-              <li key={ability.ability.name}>{ability.ability.name}</li>
-            ))}
-          </ul>
+    <div className='fixed inset-0  overflow-y-auto'>
+      <div className='flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center'>
+        <div className='fixed inset-0 transition-opacity'>
+          <div className='absolute inset-0 bg-gray-500 opacity-75' />
         </div>
-        <div className='mt-4'>
-          <h2 className='text-lg font-bold mb-2'>Stats</h2>
-          <ul>
-            {selectedPokemon.stats.map((stat) => (
-              <li key={stat.stat.name}>
-                {stat.stat.name}: {stat.base_stat}
-              </li>
-            ))}
-          </ul>
+        <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-center align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
+          <div className='flex items-center justify-center'>
+            <h2 className='text-xl font-semibold text-gray-700 capitalize'>
+              {pokemonDetails.name}
+            </h2>
+
+          </div>
+          <div className='flex items-center justify-center'>
+            <img
+              className='h-48 w-48 object-contain'
+              src={pokemonDetails.sprites.front_default}
+              alt={pokemonDetails.name}
+            />
+          </div>
+          <div>
+            <p>Height: {pokemonDetails.height}</p>
+            <p>Weight: {pokemonDetails.weight}</p>
+            <p>Abilities:</p>
+            <ul>
+              {pokemonDetails.abilities.map((ability) => (
+                <li key={ability.ability.name}>{ability.ability.name}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded'>
-          Catch {selectedPokemon.name}
-        </button>
       </div>
     </div>
   )

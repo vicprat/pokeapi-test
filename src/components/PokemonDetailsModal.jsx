@@ -18,7 +18,10 @@ const PokemonDetailsModal = ({ pokemonDetails, onClose }) => {
           </div>
           <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl'>
             <div className='flex items-center justify-between'>
-              <h2 className='text-xl font-bold mb-2'>{pokemonDetails.name}</h2>
+              <h2 className='text-xl font-semibold text-gray-700 capitalize'>
+                {pokemonDetails.name}
+              </h2>
+
               <button
                 className='text-gray-500 hover:text-gray-700 focus:outline-none'
                 onClick={onClose}
@@ -38,8 +41,8 @@ const PokemonDetailsModal = ({ pokemonDetails, onClose }) => {
             </div>
             <div className='text-center'>
               <p className='text-gray-500'>Double click to more details on Pokemon</p>
-              <p className='text-gray-400'>or</p>
-              <button onDoubleClick={handleMoreDetailsClick}>More Details</button>
+              <p className='text-gray-600'>or</p>
+              <button className='hover:text-gray-500' onDoubleClick={handleMoreDetailsClick}>More Details</button>
             </div>
           </div>
         </div>

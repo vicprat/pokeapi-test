@@ -49,7 +49,7 @@ const PokemonList = () => {
 
   return (
     <div>
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {currentPokemons.map((pokemon) => (
           <PokemonListItem onClick={() => handlePokemonClick(pokemon.url)} key={pokemon.name} pokemon={pokemon} />
         ))}
