@@ -42,7 +42,7 @@ const PokemonDetailsModal = ({ pokemonDetails, onClose }) => {
             <div className='text-center'>
               <p className='text-gray-500'>Double click to more details on Pokemon</p>
               <p className='text-gray-600'>or</p>
-              <button className='hover:text-gray-500' onDoubleClick={handleMoreDetailsClick}>More Details</button>
+              <button className='hover:text-gray-500' onDoubleClick={handleMoreDetailsClick}>Double Click Here</button>
             </div>
           </div>
         </div>
