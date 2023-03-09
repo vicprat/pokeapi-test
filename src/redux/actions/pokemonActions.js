@@ -5,7 +5,7 @@ import axios from 'axios'
 export const getPokemonList = createAsyncThunk(
   'pokemon/getPokemonList',
   async () => {
-    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=151')
+    const response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=151')
     return response.data.results
   }
 )
@@ -13,8 +13,8 @@ export const getPokemonList = createAsyncThunk(
 // Get details of pokemon from PokeAPI
 export const getPokemonDetails = createAsyncThunk(
   'pokemon/getPokemonDetails',
-  async (pokemonId) => {
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+  async (url) => {
+    const response = await axios.get(url)
     return response.data
   }
 )

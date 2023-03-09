@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPokemonList } from '../redux/actions/pokemonActions'
 import PokemonListItem from './PokemonListItem'
 import Pagination from './Pagination'
+import PokemonDetailsModal from './PokemonDetailsModal'
 
 const PokemonList = () => {
   const dispatch = useDispatch()
@@ -12,20 +13,28 @@ const PokemonList = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pokemonsPerPage] = useState(20)
+  const [selectedPokemon, setSelectedPokemon] = useState(null)
 
-  // Calculate index of last pokemon on current page
+  // Calcular el índice del último pokemon en la página actual
   const indexOfLastPokemon = currentPage * pokemonsPerPage
-  // Calculate index of first pokemon on current page
+  // Calcular el índice del primer pokemon en la página actual
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage
-  // Get current page of pokemons
+  // Obtener la página actual de pokemon
   const currentPokemons = pokemonList.slice(indexOfFirstPokemon, indexOfLastPokemon)
 
-  // Change page
+  // Cambiar de página
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
-  // Fetch pokemon list on initial load
+  // obtener el detalle de un pokemon al hacer click en el nombre
+  const handlePokemonClick = async (pokemonUrl) => {
+    const response = await fetch(pokemonUrl)
+    const data = await response.json()
+    setSelectedPokemon(data)
+  }
+
+  // Obtener la lista de pokemon en el montaje inicial del componente
   useEffect(() => {
     dispatch(getPokemonList())
   }, [dispatch])
@@ -42,7 +51,7 @@ const PokemonList = () => {
     <div>
       <div className='grid grid-cols-3'>
         {currentPokemons.map((pokemon) => (
-          <PokemonListItem key={pokemon.name} pokemon={pokemon} />
+          <PokemonListItem onClick={() => handlePokemonClick(pokemon.url)} key={pokemon.name} pokemon={pokemon} />
         ))}
       </div>
       <Pagination
@@ -50,6 +59,9 @@ const PokemonList = () => {
         totalPages={Math.ceil(pokemonList.length / pokemonsPerPage)}
         onPageChange={handlePageChange}
       />
+      {selectedPokemon && (
+        <PokemonDetailsModal pokemonDetails={selectedPokemon} onClose={() => setSelectedPokemon(null)} />
+      )}
     </div>
   )
 }

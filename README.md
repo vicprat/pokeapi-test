@@ -29,9 +29,9 @@ La aplicación debe cumplior con los siguientes requisitos:
     1. Hacer uso de i18n para mostrar el texto en español e ingles.
     2. La aplicacion debe ser estilizada con tailwindcss.
     3. La aplicacion debe hacer uso de react-router-dom para manejar las rutas.
-    4. La aplicacion debe hacer uso de redux para manejar el estado de la aplicacion.
-    5. La aplicacion debe hacer uso de redux toolkit para manejar el estado asincrono de la aplicacion y llamados a APIs.
-    6. Hacer llamado de la siguiente API https://pokeapi.co/ y mostrar los resultados en una lista con un limite de 151 elementos y debe ser paginada en bloques de 20 elementos.
+    4. Hacer llamado de la siguiente API https://pokeapi.co/ y mostrar los resultados en una lista con un limite de 151 elementos y debe ser paginada en bloques de 20 elementos.
+    5. La aplicacion debe hacer uso de redux para manejar el estado de la aplicacion.
+    6. La aplicacion debe hacer uso de redux toolkit para manejar el estado asincrono de la aplicacion y llamados a APIs.
     7. Al hacer click en un elemento de la lista debe mostrar la imagen principal del pokemon seleccionado en un modal.
     8. El modal debe tener un botón para ir a una ruta que muestre la información del pokemon seleccionado el cual debera redirigir a al usuario haciendo doble click en el pokemon seleccionado usando el hook de useNavigate de react-router-dom.
     9. El modal debe tener un botón para cerrar el modal.
