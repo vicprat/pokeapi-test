@@ -1,15 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getPokemonList, getPokemonDetails } from '../actions'
+import { getPokemonList, getPokemonDetails } from '../actions/pokemonActions'
+
+const initialState = {
+  pokemonList: [],
+  pokemonDetails: null,
+  isLoading: false,
+  error: null,
+  pagination: {
+    currentPage: 1,
+    totalPages: null
+  }
+}
 
 export const pokemonSlice = createSlice({
   name: 'pokemon',
-  initialState: {
-    pokemonList: [],
-    pokemonDetails: null,
-    isLoading: false,
-    error: null
+  initialState,
+  reducers: {
+    setPagination: (state, action) => {
+      state.pagination = action.payload
+    }
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getPokemonList.pending, (state) => {
@@ -17,7 +27,8 @@ export const pokemonSlice = createSlice({
         state.error = null
       })
       .addCase(getPokemonList.fulfilled, (state, action) => {
-        state.pokemonList = action.payload
+        state.pokemonList = action.payload.results
+        state.pagination.totalPages = Math.ceil(action.payload.count / 20)
         state.isLoading = false
         state.error = null
       })
@@ -42,5 +53,7 @@ export const pokemonSlice = createSlice({
       })
   }
 })
+
+export const { setPagination } = pokemonSlice.actions
 
 export default pokemonSlice.reducer
